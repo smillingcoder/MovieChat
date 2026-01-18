@@ -1,13 +1,18 @@
 import requests
 import time
+import os
+
+TOKEN = os.environ.get("token")
+
+if not TOKEN:
+    raise RuntimeError("Token not found in Render environment variables")
+
+
 
 def tmdb_process():
-
-    with open("keys.txt","r") as f:
-        token=f.read()
         
     header={
-        "Authorization":f"Bearer {token}",
+        "Authorization":f"Bearer {TOKEN}",
         "accept":"application/json"
     }
     URL="https://api.themoviedb.org/3/movie/popular"
