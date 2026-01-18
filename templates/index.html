@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieChat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> 
+     <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+<body>
+    <div class="big-container">
+
+        <p class="heading-class">🎬MovieChat</p>
+
+        <div class="chat-container">
+        <p  class="you-class">You :</p>
+
+
+        <form action="/" method="POST">
+        <div class="input-class">
+        <textarea class="textarea-class"placeholder="type something here..." name="user" rows="4" cols="50"></textarea>
+        <button  class="send-button-class">send</button>
+        </div>
+        </form>
+        <p  class="bot-class"
+        >{% if your_mood %}Bot : Your mood is {{your_mood}} {% endif %}</p>
+        </div>
+
+        <div class="info-container">
+        {% if total_results %}
+        <p>{{total_results}} matches out of {{total_movies}}</p>
+        <P>suggested genres as per your mood: {{genres}}</P>
+        {% endif %}
+        {% if reply %} 
+        {% if reply is string %}
+        <p style="color: orangered;font-weight: bold;">{{reply}}</p>
+        </div>
+
+        {% else %}
+        {% for i in reply %}
+        <div class="result-container">
+        <P class="title-class">{{i[3]}}</P>
+
+        <img src="https://image.tmdb.org/t/p/w500/{{i[-1]}}" class="movie-poster">
+        <p> Release Date : {{i[2]}}</p>
+        <p> Genres : {{i[1]}}</p>
+        <p> Vote Average : {{i[4]}}👍</p>
+        <P class="overview-class"> Overview : {{i[5]}}</P>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endif %}
+    </div>
+    </body>
+</html>
+
+
+
+
+
