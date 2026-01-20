@@ -31,7 +31,9 @@ def home():
             rows=complete_movie_info()
             selected_rows=selected_movie(rows,mood_genres)
             final_movies=movies_to_display(selected_rows)
-            reply=final_movies
+            if not final_movies:
+                reply="enter a valid text"
+            else:reply=final_movies
         else:
             reply="enter something..."
 
