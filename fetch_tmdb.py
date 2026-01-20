@@ -2,15 +2,12 @@ import requests
 import time
 import os
 
-TOKEN = os.environ.get("token")
-
-if not TOKEN:
-    raise RuntimeError("Token not found in Render environment variables")
-
-
 
 def tmdb_process():
-        
+    
+    with open("key.txt","r") as f:
+        TOKEN=f.read()
+    
     header={
         "Authorization":f"Bearer {TOKEN}",
         "accept":"application/json"
