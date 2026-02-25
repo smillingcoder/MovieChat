@@ -4,13 +4,11 @@ A Flask web application that recommends movies based on the **user’s mood** us
 
 The system detects emotions from text input, maps them to movie genres, and displays relevant movie suggestions stored in a local database.
 
-🚀 Live Demo:
-https://huggingface.co/spaces/rokkie-21937/MOVIE_CHAT (it may not open , if the space is closed)
-
 
 🎥 Demo Video:  
 https://drive.google.com/file/d/15zbv4XRbv_qaM8MesGTx6l7YhJG2QYmh/view?usp=sharing
 
+---
 
 
 <img height="300" alt="image" src="https://github.com/user-attachments/assets/252c0c7a-0b0f-4ba7-ac04-8241a6129eb1" />
