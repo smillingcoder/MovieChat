@@ -5,16 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MovieChat</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> 
+     <!-- <link rel="stylesheet" href="styles.css"> -->
 </head>
 <body>
     <div class="big-container">
-
+        <form action="/" method="POST">
+        <div class="search-box">
+        <input type="text" placeholder="Search.." name="search">
+        <button type="submit" class="search-button"></button>
+        </div>
+        </form>
         <p class="heading-class">🎬MovieChat</p>
+        <p>Welcome to MovieChat 🎬 Just type anything in the chat box—how you’re feeling, what kind of movie you want, or even something about your day. An AI-based system understands your mood and recommends movies that match it. You can also search for movies by name using the search bar and explore posters, details, and personalized suggestions.</p>
 
         <div class="chat-container">
         <p  class="you-class">You :</p>
-
-
         <form action="/" method="POST">
         <div class="input-class">
         <textarea class="textarea-class"placeholder="type something here..." name="user" rows="4" cols="50"></textarea>
@@ -24,17 +29,17 @@
         <p  class="bot-class"
         >{% if your_mood %}Bot : Your mood is {{your_mood}} {% endif %}</p>
         </div>
-
         <div class="info-container">
         {% if total_results %}
         <p>{{total_results}} matches out of {{total_movies}}</p>
-        <P>suggested genres as per your mood: {{genres}}</P>
+        <P>{% if your_mood %} suggested genres as per your mood: {{genres}} {% endif %} </P>
         {% endif %}
         {% if reply %} 
         {% if reply is string %}
         <p style="color: orangered;font-weight: bold;">{{reply}}</p>
         </div>
-
+        <br>
+        <br>
         {% else %}
         {% for i in reply %}
         <div class="result-container">
@@ -52,7 +57,6 @@
     </div>
     </body>
 </html>
-
 
 
 
