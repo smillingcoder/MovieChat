@@ -76,8 +76,7 @@ via HuggingFace Transformers pipeline.
 ### 1️⃣ Clone Repository
 
 ```bash
-git clone https://github.com/your-username/mood-movie-recommender.git
-cd mood-movie-recommender
+https://github.com/smillingcoder/MovieChat.git
 ```
 
 ### 2️⃣ Install Dependencies
