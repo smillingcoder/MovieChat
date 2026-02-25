@@ -1,20 +1,17 @@
 import requests
 import time
-import os
-
 
 def tmdb_process():
-    
-    with open("key.txt","r") as f:
-        TOKEN=f.read()
-    
+
+
+        
     header={
-        "Authorization":f"Bearer {TOKEN}",
+        "Authorization":"Bearer {paste your token here , without the curly braces}",
         "accept":"application/json"
     }
     URL="https://api.themoviedb.org/3/movie/popular"
     movies_in_dict=[]
-    for page in range(1,51):
+    for page in range(1,501):
         for attempt in range(3):
             try:
                 response=requests.get(url=URL,headers=header,
