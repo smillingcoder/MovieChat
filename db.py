@@ -1,32 +1,40 @@
-import mysql.connector
+import sqlite3
+
+DB_PATH = "movies.db"
+
+def connection():
+    return sqlite3.connect(DB_PATH, check_same_thread=False)
+
 
 def database_setup():
-    def connection():
-        return mysql.connector.connect(
-            host='localhost',
-            user='root',
-            password='root',
-            database='demo'
-        )
     conn=connection()
     c=conn.cursor()
-    querry="""create table if not exists Final_Table(
-        id INT PRIMARY KEY AUTO_INCREMENT,
-        movie_id BIGINT NOT NULL UNIQUE,
+    query = """
+    CREATE TABLE IF NOT EXISTS Final_Table (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        movie_id INTEGER UNIQUE NOT NULL,
         genres TEXT,
-        release_date DATE,
-        title VARCHAR(255),
-        vote_average DECIMAL(2,1),
+        release_date TEXT,
+        title TEXT,
+        vote_average REAL,
         overview TEXT,
-        poster_path VARCHAR(255) DEFAULT NULL
-        )"""
+        poster_path TEXT,
+        DOI DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+    """
 
-    c.execute(querry)
+
+    c.execute(query)
 
     conn.commit()
     c.close()
     connection().close()
     print("database present")
+
+
+
+
+
 
 
 
