@@ -6,7 +6,7 @@ The system detects emotions from text input, maps them to movie genres, and disp
 
 
 🎥 Demo Video:  
-https://drive.google.com/file/d/15zbv4XRbv_qaM8MesGTx6l7YhJG2QYmh/view?usp=sharing
+https://drive.google.com/file/d/1pUqvYFe-zR8DQ_Qwc1UeH3h7z0Gb_dex/view?usp=sharing
 
 ---
 
