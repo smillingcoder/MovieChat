@@ -126,10 +126,10 @@ http://localhost:7860
 
 Sohum Tiwari
 
-GitHub: https://github.com/your-username
+GitHub: https://github.com/smillingcoder
 
 ---
 
 ## ⭐ If You Like This Project
 
-Give it a star ⭐
+Give it a star on GitHub ⭐
