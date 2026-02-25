@@ -1,14 +1,6 @@
-import mysql.connector
-from datetime import date, timedelta
+from db import connection
+from datetime import datetime, timedelta
 
-
-def connection():
-    return mysql.connector.connect(
-        host='localhost',
-        user='root',
-        password='root',
-        database='demo'
-    )
 
 
 def movie_count():
@@ -24,10 +16,10 @@ def movie_count():
 def data_insertion(List):
     conn=connection()
     c=conn.cursor()
-    query="""INSERT IGNORE INTO Final_Table
+    query="""INSERT OR IGNORE INTO Final_Table
     (movie_id,genres,release_date,title,vote_average,overview,poster_path)
     VALUES
-    (%s,%s,%s,%s,%s,%s,%s)"""
+    (?,?,?,?,?,?,?)"""
     c.executemany(query,List)
     conn.commit()
     c.close()
@@ -62,7 +54,7 @@ def selected_movie(rows,mood_genres):
 def movies_to_display(final_list):
     conn=connection()
     c=conn.cursor()
-    placeholders = ",".join(["%s"] * len(final_list))
+    placeholders = ",".join(["?"] * len(final_list))
     query = f"""
         SELECT movie_id,genres,release_date,title,vote_average,overview,poster_path
         FROM Final_Table
@@ -76,34 +68,59 @@ def movies_to_display(final_list):
 
 
 
-def should_refresh():
+def update_table():
+    conn=connection()
+    c=conn.cursor()
+
+    query=""" DELETE FROM Final_Table"""
+    c.execute(query)
+    conn.commit()
+    c.close()
+    conn.close()
+
+
+def date_check():
+
+    conn=connection()
+    c=conn.cursor()
+
+    query=""" SELECT DOI FROM Final_Table ORDER BY id LIMIT 1"""
+    c.execute(query)
+
+    row=c.fetchone()
+    c.close()
+    conn.close()
+
+    now=datetime.now()
+
+    if not row or not row[0]:
+        return True
+
+    doi = datetime.fromisoformat(row[0])
+
+    return now - doi > timedelta(days=15)
+
+
+
+
+def search_movie_by_title(title):
+
     conn = connection()
     c = conn.cursor()
 
     query = """
-    SELECT DATE(CREATE_TIME)
-    FROM information_schema.tables
-    WHERE table_schema = 'demo'
-    AND table_name = 'Final_Table'
+    SELECT movie_id, genres, release_date, title, vote_average, overview, poster_path
+    FROM Final_Table
+    WHERE LOWER(title) LIKE LOWER(?)
     """
-    c.execute(query)
-    created_on = c.fetchone()[0]
+
+    search_value = "%" + title + "%"
+
+    c.execute(query, (search_value,))
+    rows = c.fetchall()
 
     c.close()
     conn.close()
 
-    if created_on is None:
-        return True
-
-    return date.today() >= created_on + timedelta(days=10)
-
-
-def update_table():
-    conn = connection()
-    c = conn.cursor()
-    c.execute("TRUNCATE TABLE Final_Table")
-    conn.comit()
-    c.close()
-    conn.close()
-
+    return rows
 
